@@ -9,13 +9,23 @@ const NoteContext = createContext();
 
 export const NoteProvider = ({children}) => {
 
+    const [isAuthenticated, setIsAuthenticated] = useState(true);
+
     const [notes, setNotes] = useState([
         {
+            id: 1,
             title: "This is first app",
             content: "Example of contextAPI",
             statusId: 1,
             date: "today",
-        }
+        },
+        {
+            id: 2,
+            title: "Have to learn Java",
+            content: "Java is a beautiful language",
+            statusId: 1,
+            date: "today",
+        },
     ]);
     
     // kaun sa data hume provide krna hai
@@ -24,6 +34,8 @@ export const NoteProvider = ({children}) => {
             value={{
                  notes,
                  setNotes,
+                 isAuthenticated,
+                 setIsAuthenticated,
             }}
         >
             {children}

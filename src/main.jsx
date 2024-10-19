@@ -1,6 +1,5 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import App from './App.jsx'
 import './index.css'
 
 import {
@@ -9,38 +8,64 @@ import {
   Outlet,
   RouterProvider,
 } from "react-router-dom";
-import AddNotes from './components/AddNotes.jsx';
+import AddNotes from './pages/AddNotes.jsx';
 import { NoteProvider } from './context/notes-context.jsx';
-import ViewNotes from './components/ViewNotes.jsx';
+import ViewNotes from './pages/ViewNotes.jsx';
 import { Toaster } from 'react-hot-toast';
-import Root from './components/Root.jsx';
+import Root from './pages/Root.jsx';
+import ViewNote from './pages/ViewNote.jsx';
+import Home from './pages/Home.jsx';
+import ShowData from './pages/ShowData.jsx';
+import ProtectedRoute from './components/ProtectedRoute.jsx';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Root />,
+    errorElement:<div>This is error page</div>,
     children: [
       {
+        path: "",
+        element: <Home />,
+
+      },
+      {
         path: '/about',
-        element:<div>About</div>
+        element:<div>About</div>,
       },
       {
         path: '/contact',
-        element:<div>Contact</div>
+        element:<div>Contact</div>,
       },
       {
         path: '/users',
-        element:<div>Users</div>
+        element:<div>Users</div>,
       },
       {
         path: '/add-note',
-        element:<AddNotes />
+        element:<ProtectedRoute element={AddNotes} />,
       },
       {
         path: '/notes',
-        element:<ViewNotes />
+        element:<ProtectedRoute element={ViewNotes} />,
       },
-    ]
+      {
+        path: '/note/:noteId/:noteTitle',
+        element: <ProtectedRoute element={ViewNote} />,
+      },
+      {
+        path: 'data/:dataId',
+        element:<ProtectedRoute element={ShowData} />,
+        loader: async ({ request, params }) => {
+          console.log(params.dataId);
+         const result = await fetch(
+          'https://jsonplaceholder.typicode.com/posts'
+        );
+        return result;
+        },
+        action: () => {},
+      },
+    ],
   },
   
 ]);

@@ -34,10 +34,15 @@ const AddNotes = () => {
             id: 5,
             value: "Rejeted"
         },
+        {
+            id: 6,
+            value: "Done"
+        },
         
     ]);
 
     const [formData, setFormData] = useState({
+        id: -1,
         title: "",
         content: "",
         statusId: -1,
@@ -70,7 +75,8 @@ const AddNotes = () => {
         });
 
         console.log(formData);
-        setNotes([...notes, formData])
+        formData.id = Math.round(Math.random() * 1000000);
+        setNotes([...notes, formData]);
     }
 
     //value change fn
