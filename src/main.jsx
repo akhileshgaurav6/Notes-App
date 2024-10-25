@@ -17,6 +17,9 @@ import ViewNote from './pages/ViewNote.jsx';
 import Home from './pages/Home.jsx';
 import ShowData from './pages/ShowData.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
+import UpdateNote from './pages/UpdateNote.jsx';
+import Samosa from './components/Samosa.jsx';
+import Jalebi from './components/Jalebi.jsx'
 
 const router = createBrowserRouter([
   {
@@ -54,6 +57,10 @@ const router = createBrowserRouter([
         element: <ProtectedRoute element={ViewNote} />,
       },
       {
+        path: 'note/update/:noteId',
+        element: <ProtectedRoute element={UpdateNote} />,
+      },
+      {
         path: 'data/:dataId',
         element:<ProtectedRoute element={ShowData} />,
         loader: async ({ request, params }) => {
@@ -71,7 +78,8 @@ const router = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  
+  // <StrictMode>
     <NoteProvider>
       <Toaster />
       
@@ -79,5 +87,6 @@ createRoot(document.getElementById('root')).render(
         <RouterProvider router={router} />  
       </div>
     </NoteProvider>
-  </StrictMode>,
+  //   <Samosa />
+  // </StrictMode>,
 )
