@@ -8,3 +8,20 @@ export const noteStatus = {
     6: "Done"
 
 };
+
+// note local storage functions
+
+export const noteLocalFun = {
+    saveArray:  (array) => {
+        localStorage.setItem("noteArray", JSON.stringify(array));
+    },
+    getArray: () => {
+        const arr = localStorage.getItem("noteArray") | []
+        return JSON.parse(arr);
+    },
+    clear: () => {
+        localStorage.removeItem("noteArray");
+    },
+};
+
+noteLocalFun.saveArray();
